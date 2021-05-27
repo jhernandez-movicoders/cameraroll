@@ -20,12 +20,14 @@ public class Utils {
     }
     cursor.moveToFirst();
     String document_id = cursor.getString(0);
-    document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
-    cursor.close();
+    if(document_id != null) {
+      document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+      cursor.close();
 
-    cursor = contentResolver.query(
-            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+      cursor = contentResolver.query(
+              android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+              null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+    }
     if (cursor == null) {
       return null;
     }
